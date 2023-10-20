@@ -46,19 +46,21 @@ public class GeneralGUIListener implements Listener {
         }
     }
 
-    private void playerGUIExecution(InventoryClickEvent event, Player player, int slot, Player toPunish, ItemStack item) {
-        if(!hasMetadata(event, "player")) return;
+    private boolean playerGUIExecution(InventoryClickEvent event, Player player, int slot, Player toPunish, ItemStack item) {
+        if(!hasMetadata(event, "player")) return false;
 
         String name = (PlainTextComponentSerializer.plainText().serialize(item.displayName()))
                 .replace(" Player", "")
                 .replace("[", "")
                 .replace("]", "");
 
-        if (slot < 26 && slot > 18)
+        if (slot < 26 && slot > 18 && slot != 22)
             openAnyGUI(player, toPunish, name, plugin, 0, "");
 
         if(slot == 49)
             openPunishGUI(player, 1, plugin);
+
+        return true;
     }
 
     private void executePunishment(Player player, Player toPunish, Inventory inventory, String type) {
@@ -121,7 +123,8 @@ public class GeneralGUIListener implements Listener {
     private void playerGUIExecution(InventoryClickEvent event, String type, int slot, ItemStack item, Player player, Player toPunish, Inventory inventory) {
         event.setCancelled(true);
 
-        playerGUIExecution(event, player, slot, toPunish, item);
+        if(playerGUIExecution(event, player, slot, toPunish, item))
+            return;
 
         switch (slot) {
             case 19 -> executePunishment(player, toPunish, inventory, type);

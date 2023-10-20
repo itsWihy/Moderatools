@@ -13,10 +13,6 @@ import java.util.List;
 import java.util.Objects;
 
 public final class Moderatools extends JavaPlugin {
-    private Moderatools() {
-        super();
-    }
-
     @Override
     public void onEnable() {
         List<Listener> listeners = List.of(new ClockGUIListener(this), new PunishGUIListener(this), new PunishListener(this), new GeneralGUIListener(this), new ChatListener(this));
@@ -29,6 +25,5 @@ public final class Moderatools extends JavaPlugin {
     }
 }
 
-
-//todo: Update Checker. History. Command for every action. Unban. Make History unclickable.
-//todo: FOREVER in temporary fix. Config. Permissions.
+//todo: Update Checker. History. Command for every action. Unban.
+//todo: Config. Permissions.

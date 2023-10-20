@@ -25,8 +25,6 @@ public class ClockGUIListener implements Listener {
         final Player player = (Player) event.getWhoClicked();
         final String title = textFromComponent(event.getWhoClicked().getOpenInventory().title());
         final ItemStack item = event.getCurrentItem();
-        final int slot = event.getRawSlot();
-        final Inventory inventory = event.getInventory();
 
         if(item == null)
             return;
@@ -37,7 +35,7 @@ public class ClockGUIListener implements Listener {
         if(toPunish == null || !toPunish.isOnline()) return;
 
         if(hasMetadata(event, "clock")) {
-            clockGUIExecution(event, player, slot, item, inventory, toPunish, type);
+            clockGUIExecution(event, player, event.getRawSlot(), item, event.getInventory(), toPunish, type);
         }
     }
 
@@ -83,9 +81,13 @@ public class ClockGUIListener implements Listener {
         if(selected != null && slot > 18 && slot < 26)
             shinify(item);
 
-        if (selectedShiny != null && shinyItemIndex != -1) {
+        if (selectedShiny != null && shinyItemIndex != -1 && shinyItemIndex != 25) {
             unshinify(selectedShiny);
             duration = parseMessage(plainFromComponent(getLore(selectedShiny).get(3)));
+        }
+
+        if(shinyItemIndex == 25) {
+            duration = 999999999;
         }
 
         handleArrowClick(slot, item, player, toPunish, type, duration);

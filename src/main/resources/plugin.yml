@@ -3,3 +3,8 @@ version: '${project.version}'
 main: org.wihy.moderatools.Moderatools
 api-version: '1.20'
 authors: [Wihy]
+
+commands:
+  punish:
+    description: Punish wrongdoers
+    permission: op
